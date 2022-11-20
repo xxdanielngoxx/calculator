@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'jacoco'
 }
 
 group = 'io.locngo'
@@ -19,4 +20,21 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jacocoTestCoverageVerification() {
+	violationRules {
+		rule {
+			element = "CLASS"
+			limit {
+				counter = "BRANCH"
+				value = "COVEREDRATIO"
+				minimum = 1.0
+			}
+			excludes = [
+				"io.locngo.calculator.CalculatorApplication",
+				"io.locngo.calculator.CalculatorController"
+			]
+		}
+	}
 }
